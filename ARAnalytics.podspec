@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
   librato          = { :spec_name => "Librato" }
   crashlytics      = { :spec_name => "Crashlytics",         :dependency => "Crashlytics" }
   fabric           = { :spec_name => "Fabric",              :dependency => ["Fabric", "Crashlytics"] }
-  appsflyer        = { :spec_name => "AppsFlyer",           :dependency => "AppsFlyer-SDK" }
+  appsflyer        = { :spec_name => "AppsFlyer",           :dependency => "AppsFlyerFramework" }
   branch           = { :spec_name => "Branch",              :dependency => "Branch" }
   snowplow         = { :spec_name => "Snowplow",            :dependency => "SnowplowTracker" }
   sentry           = { :spec_name => "Sentry",              :dependency => "Raven" }
@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
   appsee           = { :spec_name => "Appsee",              :dependency => "Appsee" }
   mobileapptracker = { :spec_name => "MobileAppTracker",    :dependency => "MobileAppTracker"}
   launchkit        = { :spec_name => "LaunchKit",           :dependency => "LaunchKit" }
-  firebase         = { :spec_name => "Firebase",            :dependency => "Firebase/Core" }
+  firebase         = { :spec_name => "Firebase",            :dependency => "Firebase" }
   leanplum         = { :spec_name => "Leanplum",            :dependency => "Leanplum-iOS-SDK"}
   appboy           = { :spec_name => "Appboy",              :dependency => "Appboy-iOS-SDK"}
 
