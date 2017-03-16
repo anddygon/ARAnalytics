@@ -1,10 +1,4 @@
-// For OS X support we need to mock up UIVIewController/UINavigationViewController
 
-#if !TARGET_OS_IPHONE
-@interface UIViewController : NSObject @end
-@interface UINavigationController : NSObject @end
-@protocol UINavigationControllerDelegate <NSObject> @end
-#endif
 
 @class TSConfig;
 @class ARAnalyticalProvider;
