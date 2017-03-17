@@ -1,6 +1,6 @@
 #import "ARAnalyticalProvider.h"
 
-@interface DumplingsProviderProvider : ARAnalyticalProvider
+@interface DumplingsProvider : ARAnalyticalProvider
 
 - (instancetype)initWithPID:(NSString *)pid IDFA:(NSString *)idfa;
 

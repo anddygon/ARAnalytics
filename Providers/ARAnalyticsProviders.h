@@ -158,3 +158,8 @@
 #ifdef AR_LAUNCHKIT_EXISTS
 #import "LaunchKitProvider.h"
 #endif
+
+
+#ifdef AR_DUMPLINGS_EXISTS
+#import "DumplingsProvider.h"
+#endif

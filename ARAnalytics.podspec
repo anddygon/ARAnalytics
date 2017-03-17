@@ -20,9 +20,7 @@ Pod::Spec.new do |s|
     "z",
     "sqlite3"
   ],       :has_extension => true }
-  dumplings         = { :spec_name => "Dumplings", :source => { :git =>  "git@git.stylewe.com:xike.jiaozi" },
-    :source_files => "IOS/**/*.[hm]"
-  }
+  dumplings         = { :spec_name => "Dumplings", :vendored_frameworks => "DumplingsTracker-1.0.0/DumplingsTracker.framework" }
 
   all_analytics = [appsflyer, firebase, google, dumplings]
   spec_keys = [:dependency, :source, :source_files, :vendored_libraries, :frameworks, :libraries]

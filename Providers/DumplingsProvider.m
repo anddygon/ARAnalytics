@@ -1,4 +1,4 @@
-#import "AppsFlyerProvider.h"
+#import "DumplingsProvider.h"
 #import <DumplingsTracker/DumplingsTracker.h>
 
 @implementation DumplingsProvider
@@ -24,8 +24,7 @@
 
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
     if (event) {
-        NSString *value = properties[ARAppsFlyerEventPropertyValue] ?: @"";
-        [DumplingsTracker eventWithName:event parameters:value];
+        [DumplingsTracker eventWithName:event parameters:properties];
     }
 }
 

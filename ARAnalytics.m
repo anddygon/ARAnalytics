@@ -162,6 +162,12 @@ static BOOL _ARLogShouldPrintStdout = YES;
         [self setupKeenWithProjectID:analyticsDictionary[ARKeenProjectID] andWriteKey:analyticsDictionary[ARKeenWriteKey] andReadKey:analyticsDictionary[ARKeenReadKey]];
     }
 
+
+    if (analyticsDictionary[ARDumplingsPID] && analyticsDictionary[ARDumplingsIDFA]) {
+        [self setupDumplingsWithPID:analyticsDictionary[ARDumplingsPID] IDFA:analyticsDictionary[ARDumplingsIDFA]];
+    }
+
+
     if (analyticsDictionary[ARAdobeData]) {
         [self setupAdobeWithData:analyticsDictionary[ARAdobeData] otherSettings:analyticsDictionary[ARAdobeSettings]];
     }
