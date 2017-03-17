@@ -520,6 +520,14 @@ static BOOL _ARLogShouldPrintStdout = YES;
 #endif
 }
 
++ (void)setupDumplingsWithPID:(NSString *)pid IDFA:(NSString *)idfa 
+{
+#ifdef AR_DUMPLINGS_EXISTS
+    DumplingsProvider *provider = [[DumplingsProvider alloc] initWithPID:pid IDFA:idfa];
+    [self setupProvider:provider];
+#endif
+}
+
 + (void)setupAdobeWithData:(NSDictionary *)additionalData otherSettings:(NSDictionary *)settings {
 #ifdef AR_ADOBE_EXISTS
     AdobeProvider *provider = [[AdobeProvider alloc] initWithData:additionalData settings:settings];
@@ -852,3 +860,5 @@ NSString * const ARMobileAppTrackerAdvertiserID = @"ARMobileAppTrackerAdvertiser
 NSString * const ARMobileAppTrackerConversionKey = @"ARMobileAppTrackerConversionKey";
 NSString * const ARMobileAppTrackerAllowedEvents = @"ARMobileAppTrackerAllowedEvents";
 NSString * const ARLaunchKitAPIToken = @"ARLaunchKitAPIToken";
+NSString * const ARDumplingsPID = @"ARDumplingsPID";
+NSString * const ARDumplingsIDFA = @"ARDumplingsIDFA";

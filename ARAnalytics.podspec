@@ -10,10 +10,22 @@ Pod::Spec.new do |s|
   s.summary      =  'Using subspecs you can define your analytics provider with the same API on iOS.'
   # s.description is at the bottom as it is partially generated.
 
-  appsflyer        = { :spec_name => "AppsFlyer",           :dependency => "AppsFlyerFramework" }
+  appsflyer        = { :spec_name => "AppsFlyer",           :vendored_frameworks => "AppsFlyerFramework-4.7.2/AppsFlyerLib.framework" }
   firebase         = { :spec_name => "Firebase",            :dependency => "Firebase" }
+  google           = { :spec_name => "GoogleAnalytics", :vendored_libraries => "GoogleAnalytics-3.17.0/Libraries/libGoogleAnalytics.a", :source_files => "GoogleAnalytics-3.17.0/Sources/*.h", :frameworks => [
+    "CoreData",
+    "SystemConfiguration"
+  ],
+  :libraries => [
+    "z",
+    "sqlite3"
+  ],       :has_extension => true }
+  dumplings         = { :spec_name => "Dumplings", :source => "git@git.stylewe.com:xike.jiaozi",
+    :source_files => "IOS/**/*.[hm]"
+  }
 
-  all_analytics = [appsflyer, firebase]
+  all_analytics = [appsflyer, firebase, google, dumplings]
+  spec_keys = [:dependency, :source, :source_files, :vendored_libraries, :frameworks, :libraries]
 
   # To make the pod spec API cleaner, subspecs are "iOS/KISSmetrics"
 
@@ -22,6 +34,7 @@ Pod::Spec.new do |s|
     ss.exclude_files = ['ARDSL.{h,m}']
     ss.private_header_files = 'ARNavigationControllerDelegateProxy.h'
     ss.ios.deployment_target = '7.0'
+    ss.frameworks = 'UIKit'
   end
 
   # s.subspec "DSL" do |ss|
@@ -53,6 +66,7 @@ Pod::Spec.new do |s|
       end
 
       ss.ios.source_files = sources
+      
       ss.dependency 'ARAnalytics/CoreIOS'
       ss.platform = :ios
       all_ios_names << providername
@@ -60,6 +74,30 @@ Pod::Spec.new do |s|
       # If there's a podspec dependency include it
       Array(analytics_spec[:dependency]).each do |dep|
           ss.dependency *dep
+      end
+
+      if analytics_spec[:vendored_frameworks]
+        ss.vendored_frameworks = analytics_spec[:vendored_frameworks]
+      end
+
+      if analytics_spec[:vendored_libraries]
+        ss.vendored_libraries = analytics_spec[:vendored_libraries]
+      end
+
+      if analytics_spec[:source]
+        ss.source = analytics_spec[:source]
+      end
+
+      if analytics_spec[:source_files]
+        ss.source_files = analytics_spec[:source_files]
+      end
+
+      if analytics_spec[:frameworks]
+        ss.frameworks = analytics_spec[:frameworks]
+      end
+
+      if analytics_spec[:libraries]
+        ss.libraries = analytics_spec[:libraries]
       end
 
     end
