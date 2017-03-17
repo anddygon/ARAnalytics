@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     "z",
     "sqlite3"
   ],       :has_extension => true }
-  dumplings         = { :spec_name => "Dumplings", :source => "git@git.stylewe.com:xike.jiaozi",
+  dumplings         = { :spec_name => "Dumplings", :source => { :git =>  "git@git.stylewe.com:xike.jiaozi" },
     :source_files => "IOS/**/*.[hm]"
   }
 
