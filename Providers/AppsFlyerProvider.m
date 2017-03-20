@@ -38,8 +38,7 @@ const NSString * ARAppsFlyerEventPropertyValue = @"value";
     }
 
     if (event) {
-        NSString *value = properties[ARAppsFlyerEventPropertyValue] ?: @"";
-        [AppsFlyerTracker.sharedTracker trackEvent:event withValue:value];
+        [AppsFlyerTracker.sharedTracker trackEvent:event withValues:properties];
     }
 }
 

@@ -60,7 +60,7 @@ Pod::Spec.new do |s|
 
       # It there's a category adding extra class methods to ARAnalytics
       if analytics_spec[:has_extension]
-        sources << "Extensions/*+#{providername}.{h,m}"
+        sources << "Extensions/*+#{providername}.{h,m,swift}"
       end
 
       ss.ios.source_files = sources
