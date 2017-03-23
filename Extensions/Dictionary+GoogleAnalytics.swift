@@ -9,9 +9,9 @@
 import Foundation
 
 
-extension Dictionary {
+public extension Dictionary {
     
-    var category: Value? {
+    public var category: Value? {
         set{
             if let v = newValue {
                 updateValue(v, forKey: "category" as! Key)
@@ -24,7 +24,7 @@ extension Dictionary {
         }
     }
     
-    var label: Value? {
+    public var label: Value? {
         set{
             if let v = newValue {
                 updateValue(v, forKey: "label" as! Key)
@@ -37,7 +37,7 @@ extension Dictionary {
         }
     }
     
-    var value: Value? {
+    public var value: Value? {
         set{
             if let v = newValue {
                 updateValue(v, forKey: "value" as! Key)

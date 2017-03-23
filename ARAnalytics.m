@@ -62,6 +62,12 @@ static BOOL _ARLogShouldPrintStdout = YES;
         [self setupGoogleAnalyticsWithID:analyticsDictionary[ARGoogleAnalyticsID]];
     }
 
+
+
+    if (analyticsDictionary[ARFacebookAppID]) {
+        [self setupFacebookWithAppID:analyticsDictionary[ARFacebookAppID]];
+    }
+
     if (analyticsDictionary[ARKISSMetricsAPIKey]) {
         [self setupKISSMetricsWithAPIKey:analyticsDictionary[ARKISSMetricsAPIKey]];
     }
@@ -300,6 +306,14 @@ static BOOL _ARLogShouldPrintStdout = YES;
 {
 #ifdef AR_GOOGLEANALYTICS_EXISTS
     GoogleAnalyticsProvider *provider = [[GoogleAnalyticsProvider alloc] initWithIdentifier:identifier];
+    [self setupProvider:provider];
+#endif
+}
+
++ (void)setupFacebookWithAppID:(NSString *)identifier
+{
+#ifdef AR_FacebookANALYTICS_EXISTS
+    FacebookProvider *provider = [[FacebookProvider alloc] initWithIdentifier:identifier];
     [self setupProvider:provider];
 #endif
 }
@@ -824,6 +838,7 @@ NSString * const ARLocalyticsAppKey = @"ARLocalytics";
 NSString * const ARKISSMetricsAPIKey = @"ARKISSMetrics";
 NSString * const ARCrittercismAppID = @"ARCrittercism";
 NSString * const ARGoogleAnalyticsID = @"ARGoogleAnalytics";
+NSString * const ARFacebookAppID = @"ARFacebookAppID";
 NSString * const ARHelpshiftAppID = @"ARHelpshiftAppID";
 NSString * const ARHelpshiftDomainName = @"ARHelpshiftDomainName";
 NSString * const ARHelpshiftAPIKey = @"ARHelpshiftAPIKey";

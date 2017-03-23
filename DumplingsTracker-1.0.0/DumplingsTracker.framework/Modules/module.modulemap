@@ -1,6 +1,0 @@
-framework module DumplingsTracker {
-  umbrella header "DumplingsTracker-umbrella.h"
-
-  export *
-  module * { export * }
-}

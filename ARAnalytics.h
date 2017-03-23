@@ -52,6 +52,7 @@
 + (void)setupMixpanelWithToken:(NSString *)token andHost:(NSString *)host;
 + (void)setupFlurryWithAPIKey:(NSString *)key;
 + (void)setupGoogleAnalyticsWithID:(NSString *)identifier;
++ (void)setupFacebookWithAppID:(NSString *)identifier;
 + (void)setupFirebaseAnalytics;
 + (void)setupLocalyticsWithAppKey:(NSString *)key;
 + (void)setupKISSMetricsWithAPIKey:(NSString *)key;
@@ -186,6 +187,7 @@ extern NSString * const ARKISSMetricsAPIKey;
 extern NSString * const ARBugsnagAPIKey;
 extern NSString * const ARCrittercismAppID;
 extern NSString * const ARGoogleAnalyticsID;
+extern NSString * const ARFacebookAppID;
 extern NSString * const ARHelpshiftAppID;
 extern NSString * const ARHelpshiftDomainName;
 extern NSString * const ARHelpshiftAPIKey;
