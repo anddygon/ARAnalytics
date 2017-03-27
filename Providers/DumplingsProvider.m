@@ -1,6 +1,12 @@
 #import "DumplingsProvider.h"
 #import <DumplingsTracker/DumplingsTracker.h>
 
+@interface DumplingsProvider ()
+
+@property (nonatomic, strong) NSString *userId;
+
+@end
+
 @implementation DumplingsProvider
 #ifdef AR_APPSFLYER_EXISTS
 
@@ -22,9 +28,23 @@
     return self;
 }
 
+-(void)identifyUserWithID:(NSString *)userID andEmailAddress:(NSString *)email{
+    if (userID) {
+        self.userId = userID;
+    }
+}
+
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
+#if DEBUG
+    return;
+#endif
+    
     if (event) {
-        [DumplingsTracker eventWithName:event parameters:properties];
+        NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
+        if(self.userId) {
+            [props setObject:self.userId forKey:@"customer_user_id"];
+        }
+        [DumplingsTracker eventWithName:event parameters:props];
     }
 }
 

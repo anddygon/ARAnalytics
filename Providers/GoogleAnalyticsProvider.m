@@ -18,10 +18,13 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     NSAssert([GAI class], @"Google Analytics SDK is not included");
+#if DEBUG
+    [[GAI sharedInstance] setDryRun:YES];
+#endif
 
     if ((self = [super init])) {
         self.tracker = [[GAI sharedInstance] trackerWithTrackingId:identifier];
-
+        [self.tracker setAllowIDFACollection:YES];
         for( NSString *inactiveEvent in @[ UIApplicationWillResignActiveNotification,
                                            UIApplicationWillTerminateNotification,
                                            UIApplicationDidEnterBackgroundNotification ]) {
@@ -58,7 +61,9 @@
     if (!category) {
         category = @"default"; // category is a required value
     }
-
+    if ([self.eventMappings objectForKey:event]) {
+        event = [self.eventMappings objectForKey:event];
+    }
     [self send:[self finalizedPropertyDictionaryFromBuilder:[GAIDictionaryBuilder
                                                                      createEventWithCategory:category
                                                                      action:event
@@ -125,11 +130,16 @@
 #endif
 
     // adding custom Dimension values if we can find a key in the mappings
-    for (NSString *key in self.customDimensionMappings.allKeys) {
-        NSString *potentialValue = properties[key];
-        if (potentialValue) {
-            [finalizedProperties setObject:potentialValue forKey:self.customDimensionMappings[key]];
-        }
+//    for (NSString *key in self.customDimensionMappings.allKeys) {
+//        NSString *potentialValue = properties[key];
+//        if (potentialValue) {
+//            [finalizedProperties setObject:potentialValue forKey:self.customDimensionMappings[key]];
+//        }
+//    }
+    for (NSString *key in properties.allKeys) {
+        if ([[[NSArray alloc] initWithObjects:@"category",@"label",@"value", nil] containsObject:key]) continue;
+        NSString *potentialValue = self.customDimensionMappings[key] ?: [NSString stringWithFormat:@"&%@",key];
+        [finalizedProperties setObject:properties[key] forKey:potentialValue];
     }
 
     // adding custom Metric values if we can find a key in the mappings

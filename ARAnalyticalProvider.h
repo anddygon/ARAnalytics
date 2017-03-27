@@ -2,6 +2,7 @@
 
 extern NSString *const ARAnalyticalProviderNewPageViewEventName;
 extern NSString *const ARAnalyticalProviderNewPageViewEventScreenPropertyKey;
+extern NSString *const ARAnalyticslProviderAddToWishlist;
 
 @interface ARAnalyticalProvider : NSObject
 
@@ -49,5 +50,12 @@ extern NSString *const ARAnalyticalProviderNewPageViewEventScreenPropertyKey;
 
 /// Retrieve messages provided to the local persisted logging system originating from a specified process.
 - (NSArray *)messagesForProcessID:(NSUInteger)processID;
+/***
+ * maps custom names to GAI customDimensions
+ * i.e. @{@"FooDimension":[GAIFields customDimensionForIndex:1], @"BarDimension":[GAIFields customDimensionForIndex:2]}
+ */
+@property (nonatomic, strong) NSDictionary *customDimensionMappings;
+
+@property (nonatomic, strong) NSDictionary *eventMappings;
 
 @end

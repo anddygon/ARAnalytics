@@ -19,6 +19,10 @@
 #import "ARAnalytics+GoogleAnalytics.h"
 #endif
 
+#ifdef AR_FACEBOOK_EXISTS
+#import "FacebookProvider.h"
+#endif
+
 #ifdef AR_FIREBASE_EXISTS
 #import "FirebaseProvider.h"
 #endif

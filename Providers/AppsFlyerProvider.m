@@ -1,7 +1,7 @@
 #import "AppsFlyerProvider.h"
 #import <AppsFlyerLib/AppsFlyerTracker.h>
 
-const NSString * ARAppsFlyerEventPropertyCurrencyCode = @"currencyCode";
+const NSString * ARAppsFlyerEventPropertyCurrencyCode = @"af_currency";
 const NSString * ARAppsFlyerEventPropertyValue = @"value";
 
 @implementation AppsFlyerProvider
@@ -36,9 +36,25 @@ const NSString * ARAppsFlyerEventPropertyValue = @"value";
     if (currencyCode) {
         AppsFlyerTracker.sharedTracker.currencyCode = currencyCode;
     }
+    
+    NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
+    [props setObject:@"0" forKey:@"data_situation"];
+#if DEBUG
+    [props setObject:@"1" forKey:@"data_situation"];
+#endif
 
+    if ([self.eventMappings objectForKey:event]) {
+        event = [self.eventMappings objectForKey:event];
+    }
+    for(NSString *key in properties.allKeys) {
+        NSString *nk = [self.customDimensionMappings objectForKey:key];
+        if(nk) {
+            [props setObject:[properties objectForKey:key] forKey:nk];
+            [props removeObjectForKey:key];
+        }
+    }
     if (event) {
-        [AppsFlyerTracker.sharedTracker trackEvent:event withValues:properties];
+        [AppsFlyerTracker.sharedTracker trackEvent:event withValues:props];
     }
 }
 

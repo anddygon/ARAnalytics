@@ -8,6 +8,7 @@
 static NSString *const ARTimingEventLengthKey = @"length";
 NSString *const ARAnalyticalProviderNewPageViewEventName = @"Screen view";
 NSString *const ARAnalyticalProviderNewPageViewEventScreenPropertyKey = @"screen";
+NSString *const ARAnalyticslProviderAddToWishlist = @"add_favorite";
 
 @interface ARAnalyticalProvider () {
     aslclient _ASLClient;

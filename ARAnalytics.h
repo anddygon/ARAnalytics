@@ -88,6 +88,7 @@
 + (void)setupLaunchKitWithAPIToken:(NSString *)token;
 + (void)setupLeanplumWithAppId:(NSString *)appId developmentKey:(NSString *)developmentKey productionKey:(NSString *)productionKey;
 + (void)setupAppboy;
++ (ARAnalyticalProvider *)providerWith:(Class) classes;
 
 /// Add a provider manually
 + (void)setupProvider:(ARAnalyticalProvider *)provider;

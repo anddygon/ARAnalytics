@@ -312,7 +312,7 @@ static BOOL _ARLogShouldPrintStdout = YES;
 
 + (void)setupFacebookWithAppID:(NSString *)identifier
 {
-#ifdef AR_FacebookANALYTICS_EXISTS
+#ifdef AR_FACEBOOK_EXISTS
     FacebookProvider *provider = [[FacebookProvider alloc] initWithIdentifier:identifier];
     [self setupProvider:provider];
 #endif
@@ -603,6 +603,15 @@ static BOOL _ARLogShouldPrintStdout = YES;
 
 #pragma mark -
 #pragma mark User Setup
+
++(ARAnalyticalProvider *)providerWith:(Class)classes {
+    for(ARAnalyticalProvider *provider in _sharedAnalytics.providers) {
+        if ([provider isMemberOfClass:classes]) {
+            return provider;
+        }
+    }
+    return nil;
+}
 
 + (void)identifyUserWithID:(NSString *)userID andEmailAddress:(NSString *)email
 {
