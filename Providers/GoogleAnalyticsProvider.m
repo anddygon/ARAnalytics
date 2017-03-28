@@ -85,7 +85,7 @@
         properties = newProperties;
     }
 
-    [self event:ARAnalyticalProviderNewPageViewEventName withProperties:properties];
+//    [self event:ARAnalyticalProviderNewPageViewEventName withProperties:properties];
 
     [self.tracker set:kGAIScreenName value:pageTitle];
     GAIDictionaryBuilder *builder = nil;

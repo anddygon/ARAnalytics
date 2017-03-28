@@ -6,7 +6,7 @@
 #import <sys/stat.h>
 
 static NSString *const ARTimingEventLengthKey = @"length";
-NSString *const ARAnalyticalProviderNewPageViewEventName = @"Screen view";
+NSString *const ARAnalyticalProviderNewPageViewEventName = @"screenview";
 NSString *const ARAnalyticalProviderNewPageViewEventScreenPropertyKey = @"screen";
 NSString *const ARAnalyticslProviderAddToWishlist = @"add_favorite";
 

@@ -55,13 +55,5 @@
     }
 }
 
-- (void)didShowNewPageView:(NSString *)pageTitle {
-
-}
-
-- (void)didShowNewPageView:(NSString *)pageTitle withProperties:(NSDictionary *)properties {
-
-}
-
 #endif
 @end
