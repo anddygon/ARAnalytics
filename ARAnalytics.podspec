@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
     "sqlite3"
   ],       :has_extension => true }
   dumplings         = { :spec_name => "Dumplings", :vendored_frameworks => "DumplingsTracker-1.1.0/DumplingsTracker.framework" }
+  # dumplings         = { :spec_name => "Dumplings", :source_files => "DumplingsTracker/*.{h,m}", :requires_arc => false }
   facebook          = { :spec_name => "Facebook", :dependency => "FBSDKCoreKit" }
 
   all_analytics = [appsflyer, firebase, google, dumplings, facebook]
@@ -81,6 +82,11 @@ Pod::Spec.new do |s|
 
       if analytics_spec[:vendored_libraries]
         ss.vendored_libraries = analytics_spec[:vendored_libraries]
+      end
+
+      if analytics_spec[:requires_arc]
+        ss.requires_arc = analytics_spec[:requires_arc]
+	ss.complier_flags = '-fno-objc-arc'
       end
 
       if analytics_spec[:source]
