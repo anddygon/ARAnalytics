@@ -41,8 +41,18 @@
     
     if (event) {
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
+        if ([self.eventMappings objectForKey:event]) {
+            event = [self.eventMappings objectForKey:event];
+        }
+        for(NSString *key in properties.allKeys) {
+            NSString *nk = [self.customDimensionMappings objectForKey:key];
+            if(nk) {
+                [props setObject:[properties objectForKey:key] forKey:nk];
+                [props removeObjectForKey:key];
+            }
+        }
         if(self.userId) {
-            [props setObject:self.userId forKey:@"customer_user_id"];
+            [props setObject:self.userId forKey:@"af_customer_user_id"];
         }
         [DumplingsTracker eventWithName:event parameters:props];
     }
