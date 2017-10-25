@@ -721,6 +721,30 @@ static BOOL _ARLogShouldPrintStdout = YES;
     }];
 }
 
++ (void)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [_sharedAnalytics iterateThroughProviders:^(ARAnalyticalProvider *provider) {
+        [provider application:app openURL:url options:options];
+    }];
+}
+
++ (void)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [_sharedAnalytics iterateThroughProviders:^(ARAnalyticalProvider *provider) {
+        [provider application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+    }];
+}
+
++ (void)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    [_sharedAnalytics iterateThroughProviders:^(ARAnalyticalProvider *provider) {
+        [provider application:application handleOpenURL:url];
+    }];
+}
+
++ (void)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    [_sharedAnalytics iterateThroughProviders:^(ARAnalyticalProvider *provider) {
+        [provider application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
+    }]
+}
+
 #pragma mark -
 #pragma mark Monitor Navigation Controller
 

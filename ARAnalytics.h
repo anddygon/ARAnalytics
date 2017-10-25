@@ -146,6 +146,12 @@
 
 /// Monitor Navigation changes as page view with additional properties
 + (void)pageView:(NSString *)pageTitle withProperties:(NSDictionary *)properties;
+/// Deep Link event
++ (void)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options;
++ (void)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
++ (void)application:(UIApplication *)application handleOpenURL:(NSURL *)url;
+
++ (void)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler;
 
 #if TARGET_OS_IPHONE
 /// Monitor a navigation controller, submitting each [ARAnalytics pageView:] on didShowViewController

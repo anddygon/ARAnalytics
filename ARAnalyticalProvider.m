@@ -88,6 +88,23 @@ NSString *const ARAnalyticslProviderAddToWishlist = @"add_favorite";
     [self event:ARAnalyticalProviderNewPageViewEventName withProperties:props];
 }
 
+/// Deep Link event
+- (void)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+}
+
+- (void)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+}
+
+- (void)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    
+}
+
+- (void)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    
+}
+
 - (void)remoteLog:(NSString *)parsedString {}
 
 #pragma mark - Local Persisted Logging
