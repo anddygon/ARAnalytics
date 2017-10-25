@@ -62,7 +62,7 @@ static BOOL _ARLogShouldPrintStdout = YES;
         [self setupGoogleAnalyticsWithID:analyticsDictionary[ARGoogleAnalyticsID]];
     }
 
-
+    [self setupCriteo];
 
     if (analyticsDictionary[ARFacebookAppID]) {
         [self setupFacebookWithAppID:analyticsDictionary[ARFacebookAppID]];
@@ -544,6 +544,14 @@ static BOOL _ARLogShouldPrintStdout = YES;
 {
 #ifdef AR_DUMPLINGS_EXISTS
     DumplingsProvider *provider = [[DumplingsProvider alloc] initWithPID:pid IDFA:idfa];
+    [self setupProvider:provider];
+#endif
+}
+
++ (void)setupCriteo
+{
+#ifdef AR_CRITEO_EXISTS
+    CriteoProvider *provider = [[CriteoProvider alloc] init];
     [self setupProvider:provider];
 #endif
 }
