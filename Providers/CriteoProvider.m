@@ -25,7 +25,7 @@
 
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
 #if DEBUG
-    return
+    return;
 #endif
     if (event) {
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
