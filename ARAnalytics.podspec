@@ -23,8 +23,9 @@ Pod::Spec.new do |s|
   dumplings         = { :spec_name => "Dumplings", :vendored_frameworks => "DumplingsTracker-1.1.0/DumplingsTracker.framework" }
   # dumplings         = { :spec_name => "Dumplings", :source_files => "DumplingsTracker/*.{h,m}", :requires_arc => false }
   facebook          = { :spec_name => "Facebook", :dependency => "FBSDKCoreKit" }
+  criteo            = { :spec_name => "Criteo", :dependency => "CriteoEventsSDK" }
 
-  all_analytics = [appsflyer, firebase, google, dumplings, facebook]
+  all_analytics = [appsflyer, firebase, google, dumplings, facebook, criteo]
   spec_keys = [:dependency, :source, :source_files, :vendored_libraries, :frameworks, :libraries]
 
   # To make the pod spec API cleaner, subspecs are "iOS/KISSmetrics"
