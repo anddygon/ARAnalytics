@@ -80,32 +80,32 @@
 }
 
 - (void)application:(UIApplication *)application continueUserActivity:(id)userActivity restorationHandler:(void (^)(int * _Nullable))restorationHandler {
-    if ( [userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] ) {
-        NSURL* deeplinkURL = userActivity.webpageURL;
+    if ( [[userActivity activityType] isEqualToString:NSUserActivityTypeBrowsingWeb] ) {
+        NSURL* deeplinkURL = [userActivity webpageURL];
         NSString* deeplinkString = deeplinkURL.absoluteString;
         [self trackDeeplink:deeplinkString];
     }
 }
 
 - (void)application:(UIApplication *)app openURL:(id)url options:(id)options {
-    NSString* deeplinkString = url.absoluteString;
+    NSString* deeplinkString = [url absoluteString];
     [self trackDeeplink:deeplinkString];
 }
 
 - (void)application:(UIApplication *)application openURL:(id)url sourceApplication:(id)sourceApplication annotation:(id)annotation {
-    NSString* deeplinkString = url.absoluteString;
+    NSString* deeplinkString = [url absoluteString];
     [self trackDeeplink:deeplinkString];
 }
 
 - (void)application:(UIApplication *)application handleOpenURL:(id)url {
-    NSString* deeplinkString = url.absoluteString;
+    NSString* deeplinkString = [url absoluteString];
     [self trackDeeplink:deeplinkString];
 }
 
 - (void)trackDeeplink:(NSString *)link {
-    CRTODeeplinkEvent* deeplinkEvent = [[CRTODeeplinkEventalloc] initWithDeeplinkLaunchUrl:link];
+    CRTODeeplinkEvent* deeplinkEvent = [[CRTODeeplinkEvent alloc] initWithDeeplinkLaunchUrl:link];
     // Send the deeplink event
-    [eventService send:deeplinkEvent];
+    [self.eventService send:deeplinkEvent];
 }
 
 #pragma mark - private help methods
