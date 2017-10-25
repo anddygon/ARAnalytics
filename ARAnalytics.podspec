@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   dumplings         = { :spec_name => "Dumplings", :vendored_frameworks => "DumplingsTracker-1.1.0/DumplingsTracker.framework" }
   # dumplings         = { :spec_name => "Dumplings", :source_files => "DumplingsTracker/*.{h,m}", :requires_arc => false }
   facebook          = { :spec_name => "Facebook", :dependency => "FBSDKCoreKit" }
-  criteo            = { :spec_name => "Criteo", :dependency => "CriteoEventsSDK" }
+  criteo            = { :spec_name => "Criteo", :dependency => "CriteoEventsSDK", :frameworks => ["AdSupport"] }
 
   all_analytics = [appsflyer, firebase, google, dumplings, facebook, criteo]
   spec_keys = [:dependency, :source, :source_files, :vendored_libraries, :frameworks, :libraries]
