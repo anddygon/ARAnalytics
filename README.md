@@ -1,3 +1,10 @@
+注意：cocoapods安装后，需要在`ARAnalyticsProviders.h`添加
+```
+#ifdef AR_CRITEO_EXISTS
+#import "CriteoProvider.h"
+#endif
+```
+
 ARAnalytics v4 [![Build Status](https://travis-ci.org/orta/ARAnalytics.svg?branch=master)](https://travis-ci.org/orta/ARAnalytics)
 ================
 
