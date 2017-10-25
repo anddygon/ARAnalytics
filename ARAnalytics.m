@@ -742,7 +742,7 @@ static BOOL _ARLogShouldPrintStdout = YES;
 + (void)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
     [_sharedAnalytics iterateThroughProviders:^(ARAnalyticalProvider *provider) {
         [provider application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
-    }]
+    }];
 }
 
 #pragma mark -
