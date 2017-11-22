@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         =  'ARAnalytics'
-  s.version      =  '4.0.4'
+  s.version      =  '4.0.5'
   s.license      =  {:type => 'MIT', :file => 'LICENSE' }
   s.homepage     =  'https://github.com/orta/ARAnalytics'
   s.authors      =  { 'orta' => 'orta.therox@gmail.com', 'Daniel Haight' => "confidence.designed@gmail.com" }
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   dumplings         = { :spec_name => "Dumplings", :vendored_frameworks => "DumplingsTracker-1.1.0/DumplingsTracker.framework" }
   # dumplings         = { :spec_name => "Dumplings", :source_files => "DumplingsTracker/*.{h,m}", :requires_arc => false }
   facebook          = { :spec_name => "Facebook", :dependency => "FBSDKCoreKit" }
-  criteo            = { :spec_name => "Criteo", :dependency => "CriteoEventsSDK", :frameworks => ["AdSupport"] }
+  criteo            = { :spec_name => "Criteo", :dependency => "CriteoEventsSDK" }
 
   all_analytics = [appsflyer, firebase, google, dumplings, facebook, criteo]
   spec_keys = [:dependency, :source, :source_files, :vendored_libraries, :frameworks, :libraries]

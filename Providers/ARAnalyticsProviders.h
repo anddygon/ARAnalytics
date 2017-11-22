@@ -167,3 +167,7 @@
 #ifdef AR_DUMPLINGS_EXISTS
 #import "DumplingsProvider.h"
 #endif
+
+#ifdef AR_CRITEO_EXISTS
+#import "CriteoProvider.h"
+#endif

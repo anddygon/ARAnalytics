@@ -62,8 +62,6 @@ static BOOL _ARLogShouldPrintStdout = YES;
         [self setupGoogleAnalyticsWithID:analyticsDictionary[ARGoogleAnalyticsID]];
     }
 
-    [self setupCriteo];
-
     if (analyticsDictionary[ARFacebookAppID]) {
         [self setupFacebookWithAppID:analyticsDictionary[ARFacebookAppID]];
     }
