@@ -3,12 +3,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 target :ARAnalyticsBootstrapiOS do
   platform :ios, '7.0'
   
-  pod 'ARAnalytics/Intercom', :path => "../"
-  pod 'ARAnalytics/DSL', :path => "../"
+  pod 'ARAnalytics', :path => '../', :subspecs => ["Criteo"]
 end
 
 target "ARAnalyticsiOSTests" do
-  pod 'Specta', '~> 1'
-  pod 'Expecta', '~> 0.2'
-  pod 'OCMock', '3.2.1'
+  
 end
