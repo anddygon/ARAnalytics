@@ -24,9 +24,9 @@
 }
 
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
-// #if DEBUG
-//     return;
-// #endif
+ #if DEBUG
+     return;
+ #endif
     if (event) {
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
         if ([self.eventMappings objectForKey:event]) {
@@ -71,7 +71,7 @@
                 CRTOBasketViewEvent *productsView = [[CRTOBasketViewEvent alloc] initWithBasketProducts:products];
                 [[CRTOEventService sharedEventService] send:productsView];
             }
-        } else if ([event isEqualToString: @"purchase"]) {
+        } else if ([event isEqualToString: @"purchase"]) {//支付成功
             NSString *orderID = props[@"order_id"];
             NSString *currency = props[@"currency"];
             

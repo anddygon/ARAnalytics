@@ -214,6 +214,8 @@ static BOOL _ARLogShouldPrintStdout = YES;
     if (analyticsDictionary[ARCrittercismAppID]) {
         [self setupCrittercismWithAppID:analyticsDictionary[ARCrittercismAppID]];
     }
+    
+    [self setupCriteo];
 }
 
 + (void)setupProvider:(ARAnalyticalProvider*)provider
