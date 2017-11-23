@@ -24,9 +24,9 @@
 }
 
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
- #if DEBUG
-     return;
- #endif
+// #if DEBUG
+//     return;
+// #endif
     if (event) {
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
         if ([self.eventMappings objectForKey:event]) {
@@ -41,6 +41,7 @@
         }
         
         //对事件进行匹配
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^pr\\d+pr$"];
         if ([event isEqualToString: @"product_view"]) {//商品浏览
             NSString *productID = props[@"product_id"];
             double price = [self productPrice: props[@"product_price"]];
@@ -50,34 +51,26 @@
                 [[CRTOEventService sharedEventService] send:productView];
             }
         } else if ([event isEqualToString: @"view_cart"]) {//购物车商品浏览
-            NSString *productID = props[@"product_id"];
-            if (productID) {//代表只有一个商品
-                double price = [self productPrice:props[@"price"]];
-                CRTOBasketProduct *product = [[CRTOBasketProduct alloc] initWithProductId:productID price: price quantity:1];
-                CRTOBasketViewEvent* productView = [[CRTOBasketViewEvent alloc] initWithBasketProducts:@[product]];
-                [[CRTOEventService sharedEventService] send:productView];
-            } else {//多个商品
-                NSMutableArray *products = [NSMutableArray array];
-                for (NSString *key in props.allKeys) {
-                    if ([key hasSuffix:@"id"]) {
-                        NSString *productID = props[key];
-                        int index = [self searchIndexIn:key];
-                        NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
-                        double price = [self productPrice:props[priceKey]];
-                        CRTOBasketProduct *product = [[CRTOBasketProduct alloc] initWithProductId:productID price:price quantity:1];
-                        [products addObject:product];
-                    }
+            NSMutableArray *products = [NSMutableArray array];
+            for (NSString *key in props.allKeys) {
+                if ([predicate evaluateWithObject:key]) {
+                    NSString *productID = props[key];
+                    int index = [self searchIndexIn:key];
+                    NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
+                    double price = [self productPrice:props[priceKey]];
+                    CRTOBasketProduct *product = [[CRTOBasketProduct alloc] initWithProductId:productID price:price quantity:1];
+                    [products addObject:product];
                 }
-                CRTOBasketViewEvent *productsView = [[CRTOBasketViewEvent alloc] initWithBasketProducts:products];
-                [[CRTOEventService sharedEventService] send:productsView];
             }
+            CRTOBasketViewEvent *productsView = [[CRTOBasketViewEvent alloc] initWithBasketProducts:products];
+            [[CRTOEventService sharedEventService] send:productsView];
         } else if ([event isEqualToString: @"purchase"]) {//支付成功
             NSString *orderID = props[@"order_id"];
             NSString *currency = props[@"currency"];
             
             NSMutableArray *products = [NSMutableArray array];
             for (NSString *key in props.allKeys) {
-                if ([key hasSuffix:@"id"]) {
+                if ([predicate evaluateWithObject:key]) {
                     NSString *productID = props[key];
                     int index = [self searchIndexIn:key];
                     NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
@@ -88,7 +81,6 @@
             }
             CRTOTransactionConfirmationEvent *transactionEvent = [[CRTOTransactionConfirmationEvent alloc] initWithBasketProducts:products transactionId:orderID currency:currency];
             [[CRTOEventService sharedEventService] send:transactionEvent];
-            
         } else {
             CRTODataEvent *data = [[CRTODataEvent alloc] init];
             [props enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
