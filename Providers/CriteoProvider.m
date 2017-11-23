@@ -24,9 +24,9 @@
 }
 
 - (void)event:(NSString *)event withProperties:(NSDictionary *)properties {
-// #if DEBUG
-//     return;
-// #endif
+ #if DEBUG
+     return;
+ #endif
     if (event) {
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:properties];
         if ([self.eventMappings objectForKey:event]) {
