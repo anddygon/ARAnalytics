@@ -79,7 +79,6 @@
                 }
             }
             CRTOTransactionConfirmationEvent *transactionEvent = [[CRTOTransactionConfirmationEvent alloc] initWithBasketProducts:products transactionId:orderID currency:currency];
-            transactionEvent.deduplication = YES;
             [[CRTOEventService sharedEventService] send:transactionEvent];
         } else if ([event isEqualToString:@"product_list_view"]) {//商品列表浏览
             NSMutableArray *products = [NSMutableArray array];
@@ -102,16 +101,6 @@
                 CRTOHomeViewEvent *homeEvent = [[CRTOHomeViewEvent alloc] init];
                 [CRTOEventService.sharedEventService send:homeEvent];
             }
-        } else {
-            CRTODataEvent *data = [[CRTODataEvent alloc] init];
-            [props enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                if ([obj isKindOfClass:[NSString class]]) {
-                    [data setStringExtraData:obj ForKey:key];
-                } else if ([obj isKindOfClass:[NSNumber class]]) {
-                    [data setFloatExtraData:[obj doubleValue] ForKey:key];
-                }
-            }];
-            [[CRTOEventService sharedEventService] send:data];
         }
     }
 }
