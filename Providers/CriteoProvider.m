@@ -16,10 +16,8 @@
 #ifdef AR_CRITEO_EXISTS
 - (instancetype)init {
     self = [super init];
-    
     CRTOAppLaunchEvent *launch = [[CRTOAppLaunchEvent alloc] init];
     [[CRTOEventService sharedEventService] send:launch];
-    
     return self;
 }
 
@@ -54,8 +52,9 @@
             NSMutableArray *products = [NSMutableArray array];
             for (NSString *key in props.allKeys) {
                 if ([predicate evaluateWithObject:key]) {
-                    NSString *productID = props[key];
                     int index = [self searchIndexIn:key];
+                    NSString *idKey = [NSString stringWithFormat:@"pr%did", index];
+                    NSString *productID = props[idKey];
                     NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
                     double price = [self productPrice:props[priceKey]];
                     CRTOBasketProduct *product = [[CRTOBasketProduct alloc] initWithProductId:productID price:price quantity:1];
@@ -67,12 +66,12 @@
         } else if ([event isEqualToString: @"purchase"]) {//支付成功
             NSString *orderID = props[@"order_id"];
             NSString *currency = props[@"currency"];
-            
             NSMutableArray *products = [NSMutableArray array];
             for (NSString *key in props.allKeys) {
                 if ([predicate evaluateWithObject:key]) {
-                    NSString *productID = props[key];
                     int index = [self searchIndexIn:key];
+                    NSString *idKey = [NSString stringWithFormat:@"pr%did", index];
+                    NSString *productID = props[idKey];
                     NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
                     double price = [self productPrice:props[priceKey]];
                     CRTOBasketProduct *product = [[CRTOBasketProduct alloc] initWithProductId:productID price:price quantity:1];
@@ -80,7 +79,29 @@
                 }
             }
             CRTOTransactionConfirmationEvent *transactionEvent = [[CRTOTransactionConfirmationEvent alloc] initWithBasketProducts:products transactionId:orderID currency:currency];
+            transactionEvent.deduplication = YES;
             [[CRTOEventService sharedEventService] send:transactionEvent];
+        } else if ([event isEqualToString:@"product_list_view"]) {//商品列表浏览
+            NSMutableArray *products = [NSMutableArray array];
+            for (NSString *key in props.allKeys) {
+                if ([predicate evaluateWithObject:key]) {
+                    int index = [self searchIndexIn:key];
+                    NSString *idKey = [NSString stringWithFormat:@"pr%did", index];
+                    NSString *productID = props[idKey];
+                    NSString *priceKey = [NSString stringWithFormat:@"pr%dpr", index];
+                    double price = [self productPrice:props[priceKey]];
+                    CRTOProduct *product = [[CRTOProduct alloc] initWithProductId:productID price:price];
+                    [products addObject:product];
+                }
+            }
+            CRTOProductListViewEvent *listEvent = [[CRTOProductListViewEvent alloc] initWithProducts:products];
+            [CRTOEventService.sharedEventService send:listEvent];
+        } else if ([event isEqualToString:ARAnalyticalProviderNewPageViewEventName]) {//首页事件
+            NSString *screenName = props[ARAnalyticalProviderNewPageViewEventScreenPropertyKey];
+            if ([screenName hasPrefix:@"home"]) {
+                CRTOHomeViewEvent *homeEvent = [[CRTOHomeViewEvent alloc] init];
+                [CRTOEventService.sharedEventService send:homeEvent];
+            }
         } else {
             CRTODataEvent *data = [[CRTODataEvent alloc] init];
             [props enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -103,15 +124,6 @@
     if (email) {
         eventService.customerEmail = email;
     }
-}
-
-- (void)setUserProperty:(NSString *)property toValue:(id)value {
-    
-}
-
-- (void)didShowNewPageView:(NSString *)pageTitle withProperties:(NSDictionary *)properties {
-    CRTOHomeViewEvent *homeEvent = [[CRTOHomeViewEvent alloc] init];
-    [homeEvent setStringExtraData:pageTitle ForKey:@"page_title"];
 }
 
 - (void)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
